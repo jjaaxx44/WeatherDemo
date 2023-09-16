@@ -42,9 +42,6 @@ extension NetworkClient {
                 return .failure(.noResponse)
             }
             switch response.statusCode {
-            case 401:
-                return .failure(.authError)
-                
             case 200...299:
                 guard let responseModel = try? JSONDecoder().decode(responseType, from: data) else {
                     return .failure(.decodeError)
@@ -52,10 +49,24 @@ extension NetworkClient {
                 return .success(responseModel)
                 
             default:
-                return .failure(.unknownStatus)
+                guard let errorInfo = try? JSONDecoder().decode(WeatherError.self, from: data) else {
+                    return .failure(.unknownStatus)
+                }
+                return .failure(.customError(infoMessage: errorInfo.error.message))
             }
         } catch {
-            return .failure(.unknownStatus)
+            print("error: ", error)
+            return .failure(.decodeError)
         }
+    }
+}
+
+extension Data {
+    var prettyPrintedJSONString: NSString? {
+        guard let object = try? JSONSerialization.jsonObject(with: self, options: []),
+              let data = try? JSONSerialization.data(withJSONObject: object, options: [.prettyPrinted]),
+              let prettyPrintedString = NSString(data: data, encoding: String.Encoding.utf8.rawValue) else { return nil }
+        
+        return prettyPrintedString
     }
 }

@@ -12,7 +12,7 @@ enum NetworkError: Error {
     case decodeError
     case noResponse
     case unknownStatus
-    case authError
+    case customError(infoMessage: String)
     
     var message: String {
         switch self {
@@ -22,8 +22,8 @@ enum NetworkError: Error {
             return "Issue decoding json data"
         case .noResponse:
             return "No response from server"
-        case .authError:
-            return "Authentication error"
+        case .customError(let infoMessage):
+            return infoMessage
         default:
             return "Unknown error"
         }
