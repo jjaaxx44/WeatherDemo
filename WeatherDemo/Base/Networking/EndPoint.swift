@@ -13,6 +13,7 @@ protocol Endpoint {
     var path: String { get }
     var method: Method { get }
     var header: [String: String]? { get }
+    var queryItems: [URLQueryItem]? { get }
 }
 
 extension Endpoint {
@@ -21,7 +22,7 @@ extension Endpoint {
     }
     
     var host: String {
-        "WeatherAPI.com" //https://weatherapi-com.p.rapidapi.com/forecast.json?q=Pune
+        "weatherapi-com.p.rapidapi.com"
     }
 
     var method: Method {
