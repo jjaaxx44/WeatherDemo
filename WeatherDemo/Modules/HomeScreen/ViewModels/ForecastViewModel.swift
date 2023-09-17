@@ -12,12 +12,12 @@ class ForecastViewModel: ObservableObject {
     
     var dayFormat: String {
         Date(timeIntervalSince1970: TimeInterval(dayData.dateEpoch))
-            .stringFormat(format: "EEEE")
+            .stringFormat(format: K.Formats.dayOnly)
     }
     
     var dateFormat: String {
         Date(timeIntervalSince1970: TimeInterval(dayData.dateEpoch))
-            .stringFormat(format: "dd MMM, YYYY")
+            .stringFormat(format: K.Formats.dateShort)
     }
 
     var temprature: String {

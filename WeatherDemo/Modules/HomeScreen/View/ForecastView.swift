@@ -12,7 +12,7 @@ struct ForecastView: View {
 
     var body: some View {
         List {
-            ForEach(vm.weatherData?.forecast.forecastday ?? []) { forecast in
+            ForEach(vm.forecast) { forecast in
                 ForecastRow(vm: ForecastViewModel(dayData: forecast))
             }
         }

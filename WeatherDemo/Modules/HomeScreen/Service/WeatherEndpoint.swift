@@ -7,18 +7,19 @@
 
 import Foundation
 
+fileprivate let APIKey = "a26a3176fcmsh6f48dbcacf88c66p16da49jsn197815e2e4a0"
+
 enum WeatherEndpoint {
     case getForecast(searchTerm: String)
 }
 
 extension WeatherEndpoint: Endpoint {
-    
     var queryItems: [URLQueryItem]? {
         switch self {
         case .getForecast(let searchTerm):
             return [
-                URLQueryItem(name: "q", value: searchTerm),
-                URLQueryItem(name: "days", value: "5")
+                URLQueryItem(name: K.QueryItems.q, value: searchTerm),
+                URLQueryItem(name: K.QueryItems.days, value: "5")
             ]
         }
     }
@@ -26,7 +27,7 @@ extension WeatherEndpoint: Endpoint {
     var path: String {
         switch self {
         case .getForecast:
-            return "/forecast.json"
+            return K.EndPoints.forecast
         }
     }
     
@@ -41,8 +42,8 @@ extension WeatherEndpoint: Endpoint {
         switch self {
         case .getForecast:
             return [
-                "X-RapidAPI-Key": "a26a3176fcmsh6f48dbcacf88c66p16da49jsn197815e2e4a0",
-                "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com"
+                K.Headers.key: APIKey,
+                K.Headers.host: K.Host.host
             ]
         }
     }

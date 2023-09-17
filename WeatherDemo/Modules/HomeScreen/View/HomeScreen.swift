@@ -24,9 +24,9 @@ struct HomeScreen: View {
                 if isLoading {
                     activityIndicator()
                 } else if vm.error != nil {
-                    infoView(vm.error?.message ?? "Please try again!!!")
+                    infoView(vm.error?.message ?? K.Texts.tryAgain)
                 } else if vm.weatherData == nil {
-                    infoView("Click search icon to enter your location...")
+                    infoView(K.Texts.searchInfo)
                 } else {
                     HeaderView(vm: vm)
                     Spacer()

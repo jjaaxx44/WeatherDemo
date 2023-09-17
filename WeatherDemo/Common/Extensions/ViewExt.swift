@@ -16,7 +16,7 @@ extension View {
 
     func textFont(size: CGFloat = 20,
                   color: Color = .white,
-                  isBold: Bool = true) -> some View {
+                  isBold: Bool = false) -> some View {
         self
             .font(.system(size: size))
             .foregroundColor(color)
@@ -29,7 +29,7 @@ extension View {
                 image
                     .resizable()
             } else if phase.error != nil {
-                Image(systemName: "photo")
+                Image(systemName: K.SysImg.photo)
             } else {
                 ProgressView()
                     .frame(width: 80, height: 80)

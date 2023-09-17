@@ -16,7 +16,8 @@ struct ForecastRow: View {
                 Text(vm.dayFormat)
                     .textFont()
                 Text(vm.dateFormat)
-                    .textFont(size: 13)
+                    .textFont(size: 13,
+                              color: .white.opacity(0.7))
             }
             Spacer()
             asyncImage(vm.currentConditionIcon)

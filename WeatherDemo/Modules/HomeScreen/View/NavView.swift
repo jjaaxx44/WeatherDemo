@@ -18,7 +18,11 @@ struct NavView: View {
         HStack {
             Button {
             } label: {
-                Image(systemName: "location").systemImage()                    }
+                Image(systemName: K.SysImg.location)
+                    .foregroundColor(.gray)
+                    .systemImage()
+            }
+            .disabled(true)
             Spacer()
             VStack {
                 Text(location).textFont(size: 25)
@@ -28,13 +32,13 @@ struct NavView: View {
             Button {
                 showingSearch.toggle()
             } label: {
-                Image(systemName: "magnifyingglass").systemImage()
+                Image(systemName: K.SysImg.search).systemImage()
             }
-            .alert("Enter your location", isPresented: $showingSearch) {
-                TextField("Enter your location", text: $searchLocation)
+            .alert(K.Texts.enterLocation, isPresented: $showingSearch) {
+                TextField(K.Texts.enterLocation, text: $searchLocation)
                     .submitLabel(.search)
                     .autocorrectionDisabled()
-                Button("Search") {
+                Button(K.Texts.search) {
                     submit(searchLocation)
                 }
             }

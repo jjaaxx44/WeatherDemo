@@ -22,7 +22,7 @@ extension Endpoint {
     }
     
     var host: String {
-        "weatherapi-com.p.rapidapi.com"
+        K.Host.host
     }
 
     var method: Method {
