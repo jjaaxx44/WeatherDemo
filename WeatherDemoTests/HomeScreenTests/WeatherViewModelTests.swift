@@ -25,6 +25,7 @@ final class WeatherViewModelTests: XCTestCase {
     override func tearDown() {
         super.tearDown()
         sut = nil
+        emptysut = nil
     }
     
     func testInit() {

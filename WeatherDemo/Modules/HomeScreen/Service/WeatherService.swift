@@ -7,7 +7,7 @@
 
 import Foundation
 
-protocol WeatherServiceProtocol: NetworkClient{
+protocol WeatherServiceProtocol: NetworkClient {
     func getForecast(searchTerm: String) async -> Result<WeatherData, NetworkError>
 }
 

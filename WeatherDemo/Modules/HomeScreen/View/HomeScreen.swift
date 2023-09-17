@@ -13,6 +13,7 @@ struct HomeScreen: View {
 
     init(vm: WeatherViewModel = WeatherViewModel()) {
         _vm = StateObject(wrappedValue: vm)
+        Task { await vm.getWeatherData(for: "Kochi") }
     }
 
     var body: some View {

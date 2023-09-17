@@ -5,6 +5,8 @@
 //  Created by Abhishek Chaudhari on 15/09/23.
 //
 
+// protocol
+
 import Foundation
 
 protocol NetworkClient {

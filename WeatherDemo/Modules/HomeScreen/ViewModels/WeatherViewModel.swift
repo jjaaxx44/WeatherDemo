@@ -54,14 +54,18 @@ class WeatherViewModel: ObservableObject {
     init(weatherData: WeatherData? = nil, service: WeatherServiceProtocol = WeatherService()) {
         self.weatherData = weatherData
         self.service = service
-//        Task { await getWeatherData(for: "Kochi") }
+    }
+
+    func getWeatherData(for location: String) async {
+        let result = await self.service.getForecast(searchTerm: location)
+        await handleResult(result)
     }
 
     @MainActor
-    func getWeatherData(for location: String) async {
+    private func handleResult(_ result: Result<WeatherData, NetworkError>) {
         self.weatherData = nil
         self.error = nil
-        let result = await self.service.getForecast(searchTerm: location)
+
         switch(result) {
         case .success(let weatherData):
             self.weatherData = weatherData
