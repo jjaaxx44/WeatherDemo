@@ -58,6 +58,9 @@ extension NetworkClient {
             }
         } catch {
             print("error: ", error)
+            if error.isConnectionError {
+                return .failure(.connectionError)
+            }
             return .failure(.decodeError)
         }
     }

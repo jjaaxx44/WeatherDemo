@@ -7,11 +7,11 @@
 
 import Foundation
 
-protocol WeatherServiceProtocol: NetworkClient {
+protocol WeatherServiceProtocol: NetworkClient, StorageClient {
     func getForecast(searchTerm: String) async -> Result<WeatherData, NetworkError>
 }
 
-struct WeatherService: WeatherServiceProtocol {
+struct WeatherService: WeatherServiceProtocol {    
     func getForecast(searchTerm: String) async -> Result<WeatherData, NetworkError> {
         return await getRequest(endpoint: WeatherEndpoint.getForecast(searchTerm: searchTerm),
                                 responseType: WeatherData.self)

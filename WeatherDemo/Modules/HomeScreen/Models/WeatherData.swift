@@ -11,7 +11,7 @@ import Foundation
 struct WeatherData: Codable {
     let current: Current
     let forecast: Forecast
-    let location: Location
+    var location: Location
 }
 
 
@@ -94,7 +94,7 @@ struct Day: Codable {
 
 // MARK: - Location
 struct Location: Codable {
-    let name: String
+    var name: String
 }
 
 extension WeatherData {

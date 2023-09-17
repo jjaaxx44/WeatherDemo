@@ -69,9 +69,16 @@ class WeatherViewModel: ObservableObject {
         switch(result) {
         case .success(let weatherData):
             self.weatherData = weatherData
+            try? service.save(data: weatherData, forKey: K.Cached.savedLocation)
         case .failure(let error):
-            self.error = error
-            print(error)
+            if error == NetworkError.connectionError,
+               var data: WeatherData = try? service.get(forKey: K.Cached.savedLocation) {
+                data.location.name = data.location.name + "(Cached)"
+                self.weatherData = data
+            } else {
+                self.error = error
+                print(error)
+            }
         }
     }
 }

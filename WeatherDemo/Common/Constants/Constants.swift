@@ -18,13 +18,25 @@ struct K {
         static let feelsLike = "Feels like "
     }
 
+    struct ErrorTexts {
+        static let invalidURL = "Issue with URL"
+        static let decodeError = "Issue decoding json data"
+        static let noResponse = "No response from server"
+        static let connectionError = "Network connection issue"
+        static let unknownError = "Unknown error"
+    }
+
     struct Formats {
         static let dayShort = "EEEE, dd MMM"
         static let dateShort = "dd MMM, YYYY"
         
         static let dayOnly = "EEEE"
     }
-    
+
+    struct Cached {
+        static let savedLocation = "SavedLocation"
+    }
+
     // MARK: - APIs
     struct QueryItems {
         static let q = "q"

@@ -55,6 +55,7 @@ final class WeatherViewModelTests: XCTestCase {
 
     func testGetWeatherData_success() async {
         MockWeatherService.isSuccess = true
+        MockWeatherService.isConnectionError = false
         await emptysut.getWeatherData(for: "")
         XCTAssertNotNil(emptysut.weatherData)
         XCTAssertNil(emptysut.error)
@@ -62,20 +63,38 @@ final class WeatherViewModelTests: XCTestCase {
 
     func testGetWeatherData_failure() async {
         MockWeatherService.isSuccess = false
+        MockWeatherService.isConnectionError = false
         await emptysut.getWeatherData(for: "")
         XCTAssertNil(emptysut.weatherData)
         XCTAssertNotNil(emptysut.error)
+    }
+
+    func testGetWeatherData_failureNetworkError() async {
+        MockWeatherService.isSuccess = false
+        MockWeatherService.isConnectionError = true
+        await emptysut.getWeatherData(for: "")
+        XCTAssertNotNil(emptysut.weatherData)
+        XCTAssertEqual(emptysut.location, "Pune(Cached)")
+        XCTAssertNil(emptysut.error)
     }
 }
 
 struct MockWeatherService: WeatherServiceProtocol {
     static var isSuccess: Bool = false
+    static var isConnectionError: Bool = false
 
     func getForecast(searchTerm: String) async -> Result<WeatherDemo.WeatherData, WeatherDemo.NetworkError> {
+        if MockWeatherService.isConnectionError {
+            return .failure(.connectionError)
+        }
         if MockWeatherService.isSuccess {
             return .success(WeatherData.mockData()!)
         } else {
             return .failure(.customError(infoMessage: "Dummy Error"))
         }
+    }
+    
+    func get<T: Codable>(forKey: String) throws -> T? {
+        return WeatherData.mockData() as? T
     }
 }

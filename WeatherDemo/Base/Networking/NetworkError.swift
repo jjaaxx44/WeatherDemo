@@ -7,25 +7,28 @@
 
 import Foundation
 
-enum NetworkError: Error {
+enum NetworkError: Error, Equatable {
     case invalidURL
     case decodeError
     case noResponse
     case unknownStatus
     case customError(infoMessage: String)
-    
+    case connectionError
+
     var message: String {
         switch self {
         case .invalidURL:
-            return "Issue with URL"
+            return K.ErrorTexts.invalidURL
         case .decodeError:
-            return "Issue decoding json data"
+            return K.ErrorTexts.decodeError
         case .noResponse:
-            return "No response from server"
+            return K.ErrorTexts.noResponse
         case .customError(let infoMessage):
             return infoMessage
+        case .connectionError:
+            return K.ErrorTexts.connectionError
         default:
-            return "Unknown error"
+            return K.ErrorTexts.unknownError
         }
     }
 }
